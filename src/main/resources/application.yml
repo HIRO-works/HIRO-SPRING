@@ -1,7 +1,7 @@
 spring.application.name: hiro_java
 
 spring.profiles.group:
-  "local": "local-infra,test-db"
+  "local": "local-infra,local-db"
   "test": "test-infra,test-db"
   "prod":  "prod-infra,prod-db"
 
@@ -28,6 +28,10 @@ spring.config.activate.on-profile: local-db
 spring:
   datasource:
     driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none
+spring.sql.init.mode: always
 
 ---
 spring.config.activate.on-profile: test-infra

@@ -17,7 +17,7 @@ public class ResumesResponse {
 
     private String resumeId;
     private String applicantName;
-    private Long career;
+    private Integer career;
     private Integer educationLevel;
     private List<String> jobCategories;
     private List<String> languages;

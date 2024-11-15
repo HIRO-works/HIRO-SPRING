@@ -7,9 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.example.hiro_java.user.infra.UserEntity;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table
@@ -30,7 +28,7 @@ public class Resume {
     private String userId;
 
     @Column(name = "career")
-    private Long career;
+    private Integer career;
 
     @Column(name = "applicant_name")
     private String applicantName;
@@ -39,20 +37,20 @@ public class Resume {
     private Integer educationLevel;
 
     @OneToMany(mappedBy = "resume")
-    List<JobCategory> jobCategories;
+    Set<JobCategory> jobCategories;
 
     @OneToMany(mappedBy = "resume")
-    List<Language> languages;
+    Set<Language> languages;
 
     public void addJobCategory(String jobCategory) {
-        if(this.jobCategories == null) {this.jobCategories = new LinkedList<>();}
+        if(this.jobCategories == null) {this.jobCategories = new HashSet<>();}
 
         JobCategory entity = new JobCategory(null, this, jobCategory);
         this.jobCategories.add(entity);
     }
 
     public void addLanguage(String language) {
-        if(this.languages == null) {this.languages = new LinkedList<>();}
+        if(this.languages == null) {this.languages = new HashSet<>();}
 
         Language entity = new Language(null, this, language);
         this.languages.add(entity);
