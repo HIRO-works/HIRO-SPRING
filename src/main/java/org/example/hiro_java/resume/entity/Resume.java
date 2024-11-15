@@ -2,10 +2,13 @@ package org.example.hiro_java.resume.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.example.hiro_java.user.infra.UserEntity;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 @Entity
@@ -13,6 +16,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Resume {
     @Id
     @Column(name = "resume_id")
@@ -39,4 +43,18 @@ public class Resume {
 
     @OneToMany(mappedBy = "resume")
     List<Language> languages;
+
+    public void addJobCategory(String jobCategory) {
+        if(this.jobCategories == null) {this.jobCategories = new LinkedList<>();}
+
+        JobCategory entity = new JobCategory(null, this, jobCategory);
+        this.jobCategories.add(entity);
+    }
+
+    public void addLanguage(String language) {
+        if(this.languages == null) {this.languages = new LinkedList<>();}
+
+        Language entity = new Language(null, this, language);
+        this.languages.add(entity);
+    }
 }

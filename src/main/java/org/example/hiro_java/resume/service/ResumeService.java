@@ -2,6 +2,8 @@ package org.example.hiro_java.resume.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.hiro_java.resume.entity.Resume;
+import org.example.hiro_java.resume.repository.ResumeJpaRepository;
 import org.example.hiro_java.resume.service.dto.FileUploadEvent;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationEventPublisher;
@@ -12,6 +14,7 @@ import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -20,6 +23,7 @@ import java.util.UUID;
 public class ResumeService {
     private final ApplicationEventPublisher eventPublisher;
     private final S3Client s3Client;
+    private final ResumeJpaRepository resumeJpaRepository;
 
     @Value("${S3_BUCKET}")
     private String bucketName;
@@ -52,6 +56,10 @@ public class ResumeService {
         eventPublisher.publishEvent(new FileUploadEvent(key.toString(), userId, key + ".pdf"));
 
         return key.toString();
+    }
+
+    public List<Resume> getResumes(String userId) {
+        return resumeJpaRepository.findResumesByUserId(userId);
     }
 
 }

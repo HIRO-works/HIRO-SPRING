@@ -1,9 +1,15 @@
 package org.example.hiro_java.resume.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "job_category")
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
 public class JobCategory {
     @Id @GeneratedValue
     @Column(name = "id")
