@@ -47,6 +47,8 @@ public class ResumeService {
 
         // Save the file locally for processing (optional)
         try {
+            log.info("Uploading file to S3 pdf_name: {}", key + ".pdf");
+            log.info("user id: {}", userId);
             s3Client.putObject(putObjectRequest, RequestBody.fromInputStream(file.getInputStream(), file.getSize()));
         } catch (IOException e) {
             log.error("Error uploading file to S3", e);
