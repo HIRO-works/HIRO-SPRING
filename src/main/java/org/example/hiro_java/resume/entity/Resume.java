@@ -31,7 +31,7 @@ public class Resume {
     @Column(name = "applicant_name")
     private String applicantName;
 
-    @Column(name = "applicant_email")
+    @Column(name = "education_level")
     private Integer educationLevel;
 
     @OneToMany(mappedBy = "resume")
