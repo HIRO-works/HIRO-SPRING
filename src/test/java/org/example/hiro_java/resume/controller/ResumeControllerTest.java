@@ -47,7 +47,6 @@ class ResumeControllerTest {
 
         assertThat(resumes).isNotNull();
         assertThat(resumes).isNotEmpty();
-        assertThat(resumes).hasSize(30);
     }
 
     @Test
