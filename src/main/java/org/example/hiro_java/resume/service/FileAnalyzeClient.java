@@ -15,7 +15,7 @@ import java.util.Map;
 @Component
 @RequiredArgsConstructor
 public class FileAnalyzeClient {
-    final static String analyzeUrl = "/api/ai/analyze";
+    final static String analyzeUrl = "http://144.24.81.14/api/ai/analyze";
 
     final RestTemplate restTemplate;
     final ResumeJpaRepository resumeJpaRepository;

@@ -31,7 +31,6 @@ public class UserController {
 
     @GetMapping("/auth")
     public Boolean auth(@RequestHeader(value = "access_token") String token, HttpServletRequest req, HttpServletResponse response) {
-        System.out.println(req.getHeader("access_token"));
         User user = userService.validateToken(token);
         response.addHeader("x_user", user.getUserId());
         response.addHeader("x_username", user.getName());
