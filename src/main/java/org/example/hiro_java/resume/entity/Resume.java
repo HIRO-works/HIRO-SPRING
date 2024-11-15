@@ -36,10 +36,10 @@ public class Resume {
     @Column(name = "education_level")
     private Integer educationLevel;
 
-    @OneToMany(mappedBy = "resume")
+    @OneToMany(mappedBy = "resume", cascade = CascadeType.ALL)
     Set<JobCategory> jobCategories;
 
-    @OneToMany(mappedBy = "resume")
+    @OneToMany(mappedBy = "resume", cascade = CascadeType.ALL)
     Set<Language> languages;
 
     public void addJobCategory(String jobCategory) {

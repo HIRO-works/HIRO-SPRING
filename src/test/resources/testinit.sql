@@ -34,8 +34,8 @@ INSERT INTO resume (resume_id, user_id, career, applicant_name, education_level)
 
 
 INSERT INTO job_category (id, resume_id, category) VALUES
-   (1, '00000000-0000-0000-0000-000000000001', 'Category A'),
-   (2, '00000000-0000-0000-0000-000000000001', 'Category B'),
+   (111, '00000000-0000-0000-0000-000000000001', 'Category A'),
+   (211, '00000000-0000-0000-0000-000000000001', 'Category B'),
 
    (3, '00000000-0000-0000-0000-000000000002', 'Category C'),
 
@@ -112,8 +112,8 @@ INSERT INTO job_category (id, resume_id, category) VALUES
 
 
 INSERT INTO language (id, resume_id, language) VALUES
-   (1, '00000000-0000-0000-0000-000000000001', 'English'),
-   (2, '00000000-0000-0000-0000-000000000001', 'Spanish'),
+   (111, '00000000-0000-0000-0000-000000000001', 'English'),
+   (211, '00000000-0000-0000-0000-000000000001', 'Spanish'),
    (3, '00000000-0000-0000-0000-000000000001', 'French'),
 
    (4, '00000000-0000-0000-0000-000000000002', 'English'),
