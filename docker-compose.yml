@@ -1,0 +1,14 @@
+services:
+  concert-reservation:
+    container_name: hiro_java
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    environment:
+      - PROFILE=prod
+      - JWT_SECRET=${jwt_secret}
+      - MYSQL_USERNAME=${mysql_username}
+      - MYSQL_PASSWORD=${mysql_password}
+      - MYSQL_URL=${mysql_url}
+    ports:
+      - 8080:8080
