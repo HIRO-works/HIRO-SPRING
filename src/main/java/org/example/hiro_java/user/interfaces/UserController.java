@@ -21,7 +21,7 @@ public class UserController {
         cookie.setPath("/");
         cookie.setHttpOnly(true);
         cookie.setSecure(false);
-        cookie.setMaxAge(24 * 60);
+        cookie.setMaxAge(30 * 60);
         response.addCookie(cookie);
 
         return new UserResponseDto(user);
@@ -45,7 +45,7 @@ public class UserController {
         cookie.setPath("/");
         cookie.setHttpOnly(true);
         cookie.setSecure(false);
-        cookie.setMaxAge(24 * 60);
+        cookie.setMaxAge(30 * 60);
         response.addCookie(cookie);
 
         return true;

@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.example.hiro_java.user.infra.UserEntity;
 
+import java.util.List;
+
 @Entity
 @Table
 @Getter
@@ -16,10 +18,14 @@ public class Resume {
     @Column(name = "resume_id")
     private String id;
 
-    @JoinColumn(name = "user_id")
     @ManyToOne
+    @JoinColumn(name = "user_id", updatable = false, insertable = false)
     private UserEntity user;
 
+    @Column(name = "user_id")
+    private String userId;
+
+    @Column(name = "career")
     private Long career;
 
     @Column(name = "applicant_name")
@@ -27,4 +33,10 @@ public class Resume {
 
     @Column(name = "applicant_email")
     private Integer educationLevel;
+
+    @OneToMany(mappedBy = "resume")
+    List<JobCategory> jobCategories;
+
+    @OneToMany(mappedBy = "resume")
+    List<Language> languages;
 }

@@ -2,6 +2,7 @@ package org.example.hiro_java.resume.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.hiro_java.resume.service.dto.FileUploadEvent;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,7 @@ import java.util.UUID;
 public class ResumeService {
     private final ApplicationEventPublisher eventPublisher;
     private final S3Client s3Client;
+    private final ApplicationEventPublisher applicationEventPublisher;
 
     @Value("${S3_BUCKET}")
     private String bucketName;
@@ -37,7 +39,7 @@ public class ResumeService {
         UUID key = UUID.randomUUID();
         PutObjectRequest putObjectRequest = PutObjectRequest.builder()
                 .bucket(bucketName)
-                .key("temp/" + key + ".pdf")
+                .key(key + ".pdf")
                 .build();
 
         // Save the file locally for processing (optional)
@@ -47,6 +49,8 @@ public class ResumeService {
             log.error("Error uploading file to S3", e);
             throw new RuntimeException(e);
         }
+
+        applicationEventPublisher.publishEvent(new FileUploadEvent(key.toString(), userId, key + ".pdf"));
 
         return key.toString();
     }
