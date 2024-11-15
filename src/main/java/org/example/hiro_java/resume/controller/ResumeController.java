@@ -1,7 +1,9 @@
-package org.example.hiro_java.resume;
+package org.example.hiro_java.resume.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.hiro_java.resume.service.ResumeService;
+import org.example.hiro_java.resume.service.dto.ResumesResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -16,6 +18,7 @@ import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -27,35 +30,26 @@ public class ResumeController {
     @Value("${S3_BUCKET}")
     private String bucketName;
 
+    private final ResumeService resumeService;
+
+    /**
+     * todo user id 받아서 DB에 저장
+     * 1. 파일 S3에 업로드(이름 UUID로 변경)
+     * 2. eventPublisher 통해 파일 업로드 이벤트 발행 & 응답
+     * 3. 해당 이벤트를 받아서 파이썬 api 호출
+     * 4. api 응답 결과 & UUID DB에
+     */
     @PostMapping("/api/file/upload")
-    public String uploadFile(@RequestParam("file") MultipartFile file) {
-        if (file == null || file.isEmpty() || file.getOriginalFilename() == null) {
-            return "File is empty";
-        }
-
-        // Read PDF content (if necessary, using libraries like Apache PDFBox for detailed parsing)
-        log.info("File Name: {}", file.getOriginalFilename());
-        log.info("File Size: {} bytes", file.getSize());
-
-        // try to save the file at S3
-        log.info("Uploading file to S3");
-        UUID key = UUID.randomUUID();
-        PutObjectRequest putObjectRequest = PutObjectRequest.builder()
-                .bucket(bucketName)
-                .key("temp/" + key + ".pdf")
-                .build();
-
-        // Save the file locally for processing (optional)
-        try {
-            s3Client.putObject(putObjectRequest, RequestBody.fromInputStream(file.getInputStream(), file.getSize()));
-        } catch (IOException e) {
-            log.error("Error uploading file to S3", e);
-            throw new RuntimeException(e);
-        }
-
-        return key.toString();
+    public String uploadFile(
+            @RequestParam("file") MultipartFile file,
+            @RequestHeader("X-User") String userId) {
+        return resumeService.uploadFile(file, userId);
     }
 
+    /**
+     * 리팩토링
+     * todo user id 받아서 검증
+     */
     @GetMapping("/api/resumes/{resumeId}/download")
     public ResponseEntity<byte[]> downloadFile(
             @PathVariable("resumeId") String resumeId
@@ -84,5 +78,11 @@ public class ResumeController {
         } catch (Exception e) {
             throw new RuntimeException("S3 파일 다운로드 실패", e);
         }
+    }
+
+    @GetMapping("/api/resumes")
+    public List<ResumesResponse> getResumes() {
+        log.info("Getting resumes");
+        return List.of();
     }
 }
