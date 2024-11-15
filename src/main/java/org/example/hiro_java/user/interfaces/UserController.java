@@ -1,6 +1,7 @@
 package org.example.hiro_java.user.interfaces;
 
 import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.example.hiro_java.user.domain.User;
@@ -29,7 +30,8 @@ public class UserController {
     }
 
     @GetMapping("/auth")
-    public Boolean auth(@RequestHeader(value = "access_token", defaultValue = "") String token, HttpServletResponse response) {
+    public Boolean auth(@RequestHeader(value = "access_token") String token, HttpServletRequest req, HttpServletResponse response) {
+        System.out.println(req.getHeader("access_token"));
         User user = userService.validateToken(token);
         response.addHeader("x_user", user.getUserId());
         response.addHeader("x_username", user.getName());
