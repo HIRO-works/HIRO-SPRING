@@ -28,7 +28,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public UserResponseDto register(@RequestBody UserRequestDto userDtp, HttpServletResponse response) {
+    public UserResponseDto register(@RequestBody UserRequestDto.Register userDtp, HttpServletResponse response) {
         User user = userService.register(userDtp.getUserId(), userDtp.getPassword(), userDtp.getName());
 
         return new UserResponseDto(user);
