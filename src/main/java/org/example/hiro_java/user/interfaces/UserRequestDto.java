@@ -8,7 +8,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Getter
 public class UserRequestDto {
-    String name;
     String userId;
     String password;
+
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Getter
+    public static class Register extends UserRequestDto {
+        String name;
+    }
 }
