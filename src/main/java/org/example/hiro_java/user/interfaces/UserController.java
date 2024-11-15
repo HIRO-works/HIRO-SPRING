@@ -13,18 +13,12 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     final UserService userService;
     @PostMapping("/login")
-    public UserResponseDto login(@RequestBody UserRequestDto userDto, HttpServletResponse response) {
+    public UserResponseDto.Token login(@RequestBody UserRequestDto userDto, HttpServletResponse response) {
         User user = userService.login(userDto.getUserId(), userDto.getPassword());
 
         String newToken = userService.makeToken(user.getUserId());
-        Cookie cookie = new Cookie("access_token", newToken);
-        cookie.setPath("/");
-        cookie.setHttpOnly(true);
-        cookie.setSecure(false);
-        cookie.setMaxAge(30 * 60);
-        response.addCookie(cookie);
 
-        return new UserResponseDto(user);
+        return new UserResponseDto.Token(user, newToken);
     }
 
     @PostMapping("/register")
@@ -35,18 +29,10 @@ public class UserController {
     }
 
     @GetMapping("/auth")
-    public Boolean auth(@CookieValue(value = "access_token", defaultValue = "") String token, HttpServletResponse response) {
+    public Boolean auth(@RequestHeader(value = "access_token", defaultValue = "") String token, HttpServletResponse response) {
         User user = userService.validateToken(token);
         response.addHeader("x_user", user.getUserId());
         response.addHeader("x_username", user.getName());
-
-        String newToken = userService.makeToken(user.getUserId());
-        Cookie cookie = new Cookie("access_token", newToken);
-        cookie.setPath("/");
-        cookie.setHttpOnly(true);
-        cookie.setSecure(false);
-        cookie.setMaxAge(30 * 60);
-        response.addCookie(cookie);
 
         return true;
     }

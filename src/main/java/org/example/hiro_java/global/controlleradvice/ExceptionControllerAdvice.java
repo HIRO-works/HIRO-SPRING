@@ -11,7 +11,12 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @RestControllerAdvice
 public class ExceptionControllerAdvice extends ResponseEntityExceptionHandler {
     @ExceptionHandler(value = CustomException.class)
-    public ResponseEntity<String> handleCustomNotFoundException(CustomException e) {
+    public ResponseEntity<String> handleCustomException(CustomException e) {
         return ResponseEntity.status(HttpStatus.valueOf(e.getCode())).body(e.getMessage());
+    }
+
+    @ExceptionHandler(value = Exception.class)
+    public ResponseEntity<String> handleException(Exception e) {
+        return ResponseEntity.status(500).body(e.getMessage());
     }
 }
