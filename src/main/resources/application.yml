@@ -5,10 +5,15 @@ spring.profiles.group:
   "test": "test-infra,test-db"
   "prod":  "prod-infra,prod-db"
 
-hiro.jwt.secret: ${JWT_SECRET}
-
 ---
 spring.config.activate.on-profile: local-infra
+
+S3_ID: "test-id"
+S3_SECRET: "test-secret"
+S3_BUCKET: "test-bucket"
+S3_REGION: "test-region"
+hiro.jwt.secret: "test-13123123342214512353425872348957238954792387523890758972348957324895723890"
+
 
 ---
 spring.config.activate.on-profile: local-db
@@ -23,6 +28,7 @@ S3_ID: "test-id"
 S3_SECRET: "test-secret"
 S3_BUCKET: "test-bucket"
 S3_REGION: "test-region"
+hiro.jwt.secret: "test-jwt"
 
 ---
 spring.config.activate.on-profile: test-db
@@ -40,6 +46,7 @@ S3_ID: ${S3_ID}
 S3_SECRET: ${S3_SECRET}
 S3_BUCKET: ${S3_BUCKET}
 S3_REGION: ${S3_REGION}
+hiro.jwt.secret: ${JWT_SECRET}
 
 spring:
   datasource:
