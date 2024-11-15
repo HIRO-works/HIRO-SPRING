@@ -20,7 +20,7 @@ ENV S3_REGION=${S3_REGION}
 
 WORKDIR /workspace/app
 
-COPY ../portfolio /workspace/app
+COPY . /workspace/app
 RUN --mount=type=cache,target=/root/.gradle bash ./gradlew clean build
 RUN mkdir -p ./build/dependency && (cd ./build/dependency; jar -xf ../libs/hiro_java-*[0-9].jar)
 

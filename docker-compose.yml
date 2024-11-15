@@ -1,5 +1,5 @@
 services:
-  concert-reservation:
+  hiro_java:
     container_name: hiro_java
     build:
       context: .
