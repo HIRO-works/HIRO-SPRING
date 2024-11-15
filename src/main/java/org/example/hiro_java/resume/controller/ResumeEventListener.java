@@ -2,7 +2,6 @@ package org.example.hiro_java.resume.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.example.hiro_java.resume.service.FileAnalaizeClient;
-import org.example.hiro_java.resume.service.ResumeService;
 import org.example.hiro_java.resume.service.dto.FileUploadEvent;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;

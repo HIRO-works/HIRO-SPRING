@@ -20,7 +20,6 @@ import java.util.UUID;
 public class ResumeService {
     private final ApplicationEventPublisher eventPublisher;
     private final S3Client s3Client;
-    private final ApplicationEventPublisher applicationEventPublisher;
 
     @Value("${S3_BUCKET}")
     private String bucketName;
@@ -50,7 +49,7 @@ public class ResumeService {
             throw new RuntimeException(e);
         }
 
-        applicationEventPublisher.publishEvent(new FileUploadEvent(key.toString(), userId, key + ".pdf"));
+        eventPublisher.publishEvent(new FileUploadEvent(key.toString(), userId, key + ".pdf"));
 
         return key.toString();
     }
