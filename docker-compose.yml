@@ -10,5 +10,9 @@ services:
       - MYSQL_USERNAME=${mysql_username}
       - MYSQL_PASSWORD=${mysql_password}
       - MYSQL_URL=${mysql_url}
+      - S3_ID=${aws_access_key_id}
+      - S3_SECRET=${aws_secret_access_key}
+      - S3_BUCKET=${aws_s3_bucket}
+      - S3_REGION=${aws_s3_region}
     ports:
       - 8080:8080
