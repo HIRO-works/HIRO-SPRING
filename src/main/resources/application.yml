@@ -6,6 +6,13 @@ spring.profiles.group:
   "prod":  "prod-infra,prod-db"
 
 springdoc.swagger-ui.path: /api/swagger-ui.html
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 2MB
+      max-request-size: 10MB
+
 ---
 spring.config.activate.on-profile: local-infra
 
