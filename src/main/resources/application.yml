@@ -5,6 +5,7 @@ spring.profiles.group:
   "test": "test-infra,test-db"
   "prod":  "prod-infra,prod-db"
 
+springdoc.swagger-ui.path: /api/swagger-ui.html
 ---
 spring.config.activate.on-profile: local-infra
 
