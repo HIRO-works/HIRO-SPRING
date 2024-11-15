@@ -6,7 +6,6 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.example.hiro_java.user.domain.User;
-import org.springframework.data.annotation.CreatedDate;
 
 import java.util.Date;
 
@@ -19,16 +18,16 @@ public class UserEntity {
     String userId;
     String password;
     String name;
-    Date registerAt;
+    Date registeredAt;
 
     public UserEntity(User user) {
         this.userId = user.getUserId();
         this.password = user.getPassword();
         this.name = user.getName();
-        this.registerAt = user.getRegisterAt();
+        this.registeredAt = user.getRegisterAt();
     }
 
     public User toDomain() {
-        return new User(this.userId, this.password, this.name, this.registerAt);
+        return new User(this.userId, this.password, this.name, this.registeredAt);
     }
 }
