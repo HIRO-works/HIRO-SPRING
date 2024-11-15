@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Slf4j
 public class HealthCheckController {
-    @GetMapping("/health")
+    @GetMapping("/api/health")
     public String healthCheck() {
         log.info("Health check");
         return "OK";

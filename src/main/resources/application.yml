@@ -1,0 +1,27 @@
+spring.application.name: hiro_java
+
+spring.profiles.group:
+  "local": "local-infra,test-db"
+  "prod":  "prod-infra,prod-db"
+
+hiro.jwt.secret: ${JWT_SECRET}
+---
+spring.config.activate.on-profile: local-infra
+
+---
+spring.config.activate.on-profile: prod-infra
+
+---
+spring.config.activate.on-profile: local-infra
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+---
+spring.config.activate.on-profile: prod-infra
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    username: ${MYSQL_USERNAME}
+    password: ${MYSQL_PASSWORD}
+    url: ${MYSQL_URL}
