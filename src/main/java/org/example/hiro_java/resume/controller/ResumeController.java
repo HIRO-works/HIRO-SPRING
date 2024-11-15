@@ -10,16 +10,12 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.GetObjectRequest;
-import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @Slf4j
@@ -42,7 +38,7 @@ public class ResumeController {
     @PostMapping("/api/file/upload")
     public String uploadFile(
             @RequestParam("file") MultipartFile file,
-            @RequestHeader("X-User") String userId) {
+            @RequestHeader(value = "X-User", defaultValue = "test") String userId) {
         return resumeService.uploadFile(file, userId);
     }
 
@@ -57,7 +53,7 @@ public class ResumeController {
         log.info("Downloading file");
         GetObjectRequest getObjectRequest = GetObjectRequest.builder()
                 .bucket(bucketName)
-                .key("temp/" + resumeId + ".pdf")
+                .key(resumeId + ".pdf")
                 .build();
 
         // S3에서 파일 가져오기
@@ -81,8 +77,8 @@ public class ResumeController {
     }
 
     @GetMapping("/api/resumes")
-    public List<ResumesResponse> getResumes() {
+    public List<ResumesResponse> getResumes(@RequestHeader("X-User") String userId) {
         log.info("Getting resumes");
-        return List.of();
+        return resumeService.getResumes(userId).stream().map(ResumesResponse::new).toList();
     }
 }
