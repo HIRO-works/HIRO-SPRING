@@ -25,7 +25,7 @@ import java.util.Map;
 
 @SpringBootTest
 @ActiveProfiles("test")
-@Sql(scripts = "classpath:testinit.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+@Sql(scripts = "classpath:testinit.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_CLASS)
 class ResumeControllerTest {
     @Autowired
     ResumeService resumeService;
