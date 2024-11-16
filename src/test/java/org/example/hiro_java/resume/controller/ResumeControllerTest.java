@@ -65,7 +65,7 @@ class ResumeControllerTest {
                     "languages": ["한국어", "영어"]
                   }
                 """, Map.class);
-        when(restTemplate.getForObject(anyString(), any(), anyMap())).thenReturn(testData);
+        when(restTemplate.postForObject(anyString(), any(), any())).thenReturn(testData);
         fileAnalyzeClient.analyzeFile("1e7e9d4a-6f4a-4c9e-9e9e-1d4a9f4a9c6f", resume.getUserId(), "test");
 
         var afterInsert = resumeService.getResumes("test");
