@@ -33,9 +33,11 @@ public class ResumeService {
             return "File is empty";
         }
 
+        String fileName = file.getOriginalFilename();
+        long fileSize = file.getSize();
         // Read PDF content (if necessary, using libraries like Apache PDFBox for detailed parsing)
-        log.info("File Name: {}", file.getOriginalFilename());
-        log.info("File Size: {} bytes", file.getSize());
+        log.info("File Name: {}", fileName);
+        log.info("File Size: {} bytes", fileSize);
 
         // try to save the file at S3
         log.info("Uploading file to S3");
@@ -54,6 +56,8 @@ public class ResumeService {
             log.error("Error uploading file to S3", e);
             throw new RuntimeException(e);
         }
+
+        resumeJpaRepository.save(new Resume(key.toString(), userId, fileName, fileSize));
 
         eventPublisher.publishEvent(new FileUploadEvent(key.toString(), userId, key + ".pdf"));
 

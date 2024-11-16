@@ -30,18 +30,17 @@ public class FileAnalyzeClient {
         var analyzeRes = restTemplate.postForObject(analyzeUrl, analyzeReq, Map.class);
         if(analyzeRes == null) throw new CustomException(500, "Failed to analyze");
 
-        var entity = Resume.builder()
-                .id(resumeId)
-                .applicantName((String) analyzeRes.get("applicant_name"))
-                .userId(userId)
-                .career((Integer) analyzeRes.get("years"))
-                .build();
+        var optionalResume = resumeJpaRepository.findById(resumeId);
+        if(optionalResume.isEmpty()) throw new CustomException(500, "Failed to find resume");
 
+        var entity = optionalResume.get();
         String jobCategory = (String) analyzeRes.get("job_category");
         entity.addJobCategory(jobCategory);
 
         String language = (String)analyzeRes.get("language");
         entity.addLanguage(language);
+
+        entity.analyzeCompleted((Integer) analyzeRes.get("years"), (String) analyzeRes.get("applicant_name"));
 
         resumeJpaRepository.save(entity);
     }

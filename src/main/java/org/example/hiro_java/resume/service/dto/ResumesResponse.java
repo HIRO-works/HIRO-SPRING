@@ -17,6 +17,9 @@ public class ResumesResponse {
 
     private String resumeId;
     private String applicantName;
+    private String fileName;
+    private Long fileSize;
+    private Boolean analyzeCompleted;
     private Integer career;
     private Integer educationLevel;
     private List<String> jobCategories;
@@ -26,6 +29,9 @@ public class ResumesResponse {
         this.resumeId = resume.getId();
         this.applicantName = resume.getApplicantName();
         this.career = resume.getCareer();
+        this.fileName = resume.getFileName();
+        this.fileSize = resume.getFileSize();
+        this.analyzeCompleted = resume.getAnalyzeCompleted();
         this.educationLevel = resume.getEducationLevel();
         this.jobCategories = resume.getJobCategories().stream().map(JobCategory::getCategory).toList();
         this.languages = resume.getLanguages().stream().map(Language::getLanguage).toList();
