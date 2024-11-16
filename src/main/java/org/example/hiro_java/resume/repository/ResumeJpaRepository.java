@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface ResumeJpaRepository extends JpaRepository<Resume, String> {
     @EntityGraph(attributePaths = { "jobCategories", "languages" })
-    List<Resume> findResumesByUserId(String userId);
+    List<Resume> findResumesByUserIdOrderByCreatedAtDesc(String userId);
 }

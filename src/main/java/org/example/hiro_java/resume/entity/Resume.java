@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.example.hiro_java.user.infra.UserEntity;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Entity
@@ -46,6 +47,9 @@ public class Resume {
     @Column(name = "analyze_completed")
     private Boolean analyzeCompleted;
 
+    @Column(name = "created_at")
+    LocalDateTime createdAt;
+
     @OneToMany(mappedBy = "resume", cascade = CascadeType.ALL)
     Set<JobCategory> jobCategories;
 
@@ -58,6 +62,7 @@ public class Resume {
         this.fileName = fileOrgName;
         this.fileSize = fileSize;
         this.analyzeCompleted = false;
+        this.createdAt = LocalDateTime.now();
     }
 
     public void analyzeCompleted(String career, String applicantName) {

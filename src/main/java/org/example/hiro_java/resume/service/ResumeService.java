@@ -65,7 +65,7 @@ public class ResumeService {
     }
 
     public List<Resume> getResumes(String userId) {
-        return resumeJpaRepository.findResumesByUserId(userId);
+        return resumeJpaRepository.findResumesByUserIdOrderByCreatedAtDesc(userId);
     }
 
 }
