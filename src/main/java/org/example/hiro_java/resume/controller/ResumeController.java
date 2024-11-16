@@ -77,7 +77,7 @@ public class ResumeController {
     }
 
     @GetMapping("/api/resumes/{resumeId}")
-    ResumesResponse getReusumeInfo(@PathVariable("resumeId") String resumeId) {
+    ResumesResponse getResumeInfo(@PathVariable("resumeId") String resumeId) {
         return new ResumesResponse(resumeService.getResumeInfo(resumeId));
     }
 
