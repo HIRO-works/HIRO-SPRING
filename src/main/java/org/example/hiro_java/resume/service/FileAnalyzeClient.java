@@ -27,7 +27,7 @@ public class FileAnalyzeClient {
         analyzeReq.put("resume_id", resumeId);
         analyzeReq.put("user_id", userId);
         analyzeReq.put("file_path", fileKey);
-        var analyzeRes = restTemplate.getForObject(analyzeUrl, Map.class, analyzeReq);
+        var analyzeRes = restTemplate.postForObject(analyzeUrl, analyzeReq, Map.class);
         if(analyzeRes == null) throw new CustomException(500, "Failed to analyze");
 
         var entity = Resume.builder()
