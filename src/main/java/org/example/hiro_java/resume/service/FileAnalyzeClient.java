@@ -34,19 +34,14 @@ public class FileAnalyzeClient {
                 .id(resumeId)
                 .applicantName((String) analyzeRes.get("applicant_name"))
                 .userId(userId)
-                .career((Integer) analyzeRes.get("career"))
-                .educationLevel((Integer) analyzeRes.get("education_level"))
+                .career((Integer) analyzeRes.get("years"))
                 .build();
 
-        List<String> jobCategories = (List<String>) analyzeRes.get("job_categories");
-        for (String jobCategory : jobCategories) {
-            entity.addJobCategory(jobCategory);
-        }
+        String jobCategory = (String) analyzeRes.get("job_category");
+        entity.addJobCategory(jobCategory);
 
-        List<String> languages = (List<String>) analyzeRes.get("languages");
-        for (String language : languages) {
-            entity.addLanguage(language);
-        }
+        String language = (String)analyzeRes.get("language");
+        entity.addLanguage(language);
 
         resumeJpaRepository.save(entity);
     }
