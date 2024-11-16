@@ -29,7 +29,7 @@ public class Resume {
     private String userId;
 
     @Column(name = "career")
-    private Integer career;
+    private String career;
 
     @Column(name = "applicant_name")
     private String applicantName;
@@ -60,7 +60,7 @@ public class Resume {
         this.analyzeCompleted = false;
     }
 
-    public void analyzeCompleted(Integer career, String applicantName) {
+    public void analyzeCompleted(String career, String applicantName) {
         this.career = career;
         this.applicantName= applicantName;
         this.analyzeCompleted = true;

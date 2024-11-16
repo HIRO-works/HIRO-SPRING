@@ -20,7 +20,7 @@ public class ResumesResponse {
     private String fileName;
     private Long fileSize;
     private Boolean analyzeCompleted;
-    private Integer career;
+    private String career;
     private Integer educationLevel;
     private List<String> jobCategories;
     private List<String> languages;

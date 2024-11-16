@@ -59,7 +59,7 @@ class ResumeControllerTest {
                     "resume_id": "00000000-0000-0000-0000-000000000001",
                     "applicant_name": "김철수",
                     "user_id": "test",
-                    "career": 5,
+                    "career": "5",
                     "education_level": 3,
                     "job_categories": ["소프트웨어 엔지니어", "데이터 분석가"],
                     "languages": ["한국어", "영어"]

@@ -40,7 +40,7 @@ public class FileAnalyzeClient {
         String language = (String)analyzeRes.get("language");
         entity.addLanguage(language);
 
-        entity.analyzeCompleted((Integer) analyzeRes.get("years"), (String) analyzeRes.get("applicant_name"));
+        entity.analyzeCompleted((String) analyzeRes.get("years"), (String) analyzeRes.get("applicant_name"));
 
         resumeJpaRepository.save(entity);
     }
