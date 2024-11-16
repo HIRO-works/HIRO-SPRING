@@ -28,6 +28,10 @@ public class ResumeService {
     @Value("${S3_BUCKET}")
     private String bucketName;
 
+    public Resume getResumeInfo(String resumeId){
+        return resumeJpaRepository.findById(resumeId).orElse(null);
+    }
+
     public String uploadFile(MultipartFile file, String userId) {
         if (file == null || file.isEmpty() || file.getOriginalFilename() == null) {
             return "File is empty";
