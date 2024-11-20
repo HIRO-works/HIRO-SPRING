@@ -21,10 +21,6 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 public class ResumeController {
-    private final S3Client s3Client;
-
-    @Value("${S3_BUCKET}")
-    private String bucketName;
 
     private final ResumeService resumeService;
 
@@ -50,30 +46,7 @@ public class ResumeController {
     public ResponseEntity<byte[]> downloadFile(
             @PathVariable("resumeId") String resumeId
     ) {
-        log.info("Downloading file");
-        GetObjectRequest getObjectRequest = GetObjectRequest.builder()
-                .bucket(bucketName)
-                .key(resumeId + ".pdf")
-                .build();
-
-        // S3에서 파일 가져오기
-        try (InputStream s3InputStream = s3Client.getObject(getObjectRequest);
-             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream()) {
-
-            byte[] buffer = new byte[8 * 1024]; // 8KB 버퍼
-            int bytesRead;
-            while ((bytesRead = s3InputStream.read(buffer)) != -1) {
-                byteArrayOutputStream.write(buffer, 0, bytesRead);
-            }
-
-            byte[] fileContent = byteArrayOutputStream.toByteArray();
-            return ResponseEntity.ok()
-                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + resumeId + ".pdf")
-                    .contentType(MediaType.APPLICATION_OCTET_STREAM) // 파일의 MIME 타입에 맞게 설정할 수 있음
-                    .body(fileContent);
-        } catch (Exception e) {
-            throw new RuntimeException("S3 파일 다운로드 실패", e);
-        }
+        return resumeService.downloadFile(resumeId);
     }
 
     @GetMapping("/api/resumes/{resumeId}")
@@ -84,6 +57,6 @@ public class ResumeController {
     @GetMapping("/api/resumes")
     public List<ResumesResponse> getResumes(@RequestHeader("X-User") String userId) {
         log.info("Getting resumes");
-        return resumeService.getResumes(userId).stream().map(ResumesResponse::new).toList();
+        return resumeService.getResumes(userId);
     }
 }
